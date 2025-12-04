@@ -1,46 +1,195 @@
-# AutoCad – Python Backend + React Frontend (No Auth)
+👤 1. KANISHKA — Project Layout, Routing & Navbar (LEAD UI STRUCTURE)
+You own (only these):
+src/main.jsx
+src/pages/App.jsx
+src/components/Navbar.jsx
+src/pages/styles.css   (global layout styles)
 
-This is the same AutoCad automated dashboard project, but using a **Python FastAPI**
-backend instead of Node/Express. Frontend remains React + Vite + Recharts, with:
+Your responsibilities:
 
-- Navbar (AutoCad, Home, Upload, About, Logout label)
-- Landing page (hero)
-- Upload page with sidebar and drag & drop
-- About page with your team
-- No authentication — everything is open
+Add React Router to project
 
-## 1. Backend (Python) – how to run
+Define all routes:
 
-```bash
-cd backend_py
-pip install -r requirements.txt
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
+/ → HomePage
 
-Backend runs at: `http://localhost:8000`
+/dashboard → DashboardPage
 
-Endpoint used by frontend:
+/about → AboutPage
 
-- `POST /api/data/upload` — accepts Excel/CSV file as `file` in form-data
+Build and style the Navbar
 
-## 2. Frontend (React) – how to run
+Maintain global layout, spacing, colors, fonts
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+Ensure every page is reachable and well-structured
 
-Frontend runs at: `http://localhost:5173`
+Components you integrate:
 
-Make sure the backend is running first, then open the frontend URL in your browser.
+<Navbar />
 
-## 3. Team structure
+<Outlet /> or <Routes />
 
-Frontend components are split so each of the 5 teammates can own an area:
+👤 2. DIVYA RAJ VARSHNEY — Dashboard Logic (Core Functionality)
+You own:
+src/pages/DashboardPage.jsx
+src/components/UploadCard.jsx (only file upload handling)
 
-- Navbar & layout → `src/components/Navbar.jsx`, `src/App.jsx`
-- Landing page → `src/pages/HomePage.jsx`, `src/components/Hero.jsx`
-- Dashboard & upload → `src/pages/DashboardPage.jsx`, `src/components/UploadCard.jsx`, `src/components/FilterSidebar.jsx`
-- Charts → `src/components/ChartGrid.jsx`, `src/components/ChartWrapper.jsx`
-- About page → `src/pages/AboutPage.jsx`
+Your responsibilities:
+
+Backend → Frontend data pipeline:
+
+✔ Choose API base:
+
+API_BASE = "http://localhost:8000"
+
+
+✔ When a file is uploaded:
+
+Send file to:
+
+POST /api/data/upload
+
+
+(using axios + multipart form)
+
+✔ Save backend response into state:
+
+schema
+
+filterableFields
+
+charts
+
+data (rawData)
+
+✔ Apply filters (Rinki’s component output)
+✔ Pass filtered data to ChartGrid
+
+You integrate components:
+
+<UploadCard />
+
+<FilterSidebar />
+
+<ChartGrid />
+
+👤 3. RINKI JHA — Filters + Sidebar UX (FILTER ENGINE)
+You own:
+src/components/FilterSidebar.jsx
+
+Your responsibilities:
+
+Build filtering UI for:
+
+✔ Category fields → checkbox filters
+✔ Date fields → From / To
+✔ Call:
+
+onChange(updatedFilters)
+
+Filter structure you define:
+filters = {
+    categoryField1: ["A", "B"],
+    categoryField2: ["X"],
+    dateField: { from: "...", to: "..." }
+}
+
+Collaboration with Divya:
+
+You output filters
+
+Divya applies them to data
+
+👤 4. AMAN KHUSHWAH — Home Page + About Page + Branding
+You own:
+src/pages/HomePage.jsx
+src/pages/AboutPage.jsx
+src/components/Hero.jsx
+src/pages/styles.css   (only your section styles)
+
+Your responsibilities:
+Home Page
+
+✔ Big hero title
+✔ Subheading
+✔ Buttons:
+
+“Get started” → /dashboard
+
+“Meet the team” → /about
+
+About Page
+
+Include:
+
+Project mission
+
+Team list:
+
+Kanishka
+
+Divya Raj Varshney
+
+Rinki Jha
+
+Anant
+
+Aman Khushwah
+
+Logo placeholder
+
+Clean layout
+
+Branding
+
+Maintain color theme consistency
+
+Make landing page visually attractive
+
+👤 5. ANANT SETH — Charts & Visualization + Backend (Optional)
+Frontend (Charts) — Your Ownership:
+src/components/ChartWrapper.jsx
+src/components/ChartGrid.jsx
+
+Your responsibilities:
+
+Use Recharts to render charts based on:
+
+chart.type = "bar" | "line" | "pie"
+chart.x_field
+chart.y_field
+
+
+✔ Build ChartWrapper
+✔ Aggregate data by:
+
+groupBy
+
+date grouping
+
+summation
+
+✔ ChartGrid → loop through all charts, show in cards
+
+🟢 Backend_py (Python) — If you also own it
+backend_py/main.py
+backend_py/requirements.txt
+
+Backend Provides API:
+
+/api/data/upload → handles file upload
+
+/api/data/schema → returns table headers
+
+/api/data/charts → returns chart suggestions
+
+🔥 COLLABORATION RULES (FINAL SETUP)
+Branches
+kanishka/layout
+divya/dashboard
+rinki/filters
+aman/landing
+anant/charts
+backend/kanishka or backend/anant
+
+Rules
